@@ -9,6 +9,9 @@ Usage:
 import json
 import sys
 import pandas as pd
+pd.options.display.float_format = '{:.4f}'.format
+pd.set_option('display.max_columns', 10) # for google colab
+pd.set_option('display.max_rows', 10) # for google colab
 
 def evaluate_answer(gold_file, prediction_file):
     gold = json.load(open(gold_file))
@@ -17,7 +20,7 @@ def evaluate_answer(gold_file, prediction_file):
     ent_types = ['place', 'org', 'pers']
     total_correct, total_pred, total_gold = 0, 0, 0  # for micro
     df = pd.DataFrame(columns=['PRECISION','RECALL','F1','SUPPORT'])
-    pd.options.display.float_format = '{:.4f}'.format
+    
     for ent_type in ent_types:
         type_correct, type_pred, type_gold = 0, 0, 0  # for macro
         for corpus_file in gold:
